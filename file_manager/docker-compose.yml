@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  php:
+    build: ./backend
+    volumes:
+      - ./backend:/var/www/html.html
+      - /path/to/your/folder:/var/www/html.html  # Remplacez /path/to/your/folder par le chemin où vous souhaitez créer les dossiers et fichiers
+    networks:
+      - file_net
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8081:80"
+    networks:
+      - file_net
+
+networks:
+  file_net:
